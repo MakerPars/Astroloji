@@ -49,6 +49,8 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+      - name: Ensure Gradle wrapper is executable
+        run: chmod +x ./gradlew
       - name: Prepare Firebase placeholder config
         run: cp app/google-services.example.json app/google-services.json
       - name: Detekt
