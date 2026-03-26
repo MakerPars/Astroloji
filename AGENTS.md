@@ -31,5 +31,6 @@ CALISMA PRENSIPLERI
 | Hono / jose / zod | 4.8.3 / 6.1.0 / 4.1.5 | Backend runtime kutuphaneleri resmi dokumantasyon ve npm paket kanallari uzerinden kontrol edildi; mevcut Worker davranisi ile uyumlu. |
 | TypeScript / tsx / Vitest | 5.9.2 / 4.20.5 / 3.2.4 | Backend build ve test araci zinciri mevcut kodla birlikte yesil. |
 | Wrangler / @cloudflare/workers-types | 4.37.1 / 4.20260301.0 | Cloudflare Workers resmi dokumani kontrol edildi; deploy config ve tipler bu pin ile dogrulandi. |
+| picomatch (override) | 4.0.4 | GitHub Dependabot GHSA-3v7f-55p6-f55p uyarisi icin transitif override ile guvenli yama surumu sabitlendi. |
 
 Not: 2026-03-26 tarihinde resmi kaynaklar kontrol edildi. Repo kurtarma gorevinde davranis disi versiyon degisikligi yapilmadi; mevcut pinler lokal build/test ile dogrulanan calisan baz cizgi olarak korundu.
