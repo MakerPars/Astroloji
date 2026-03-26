@@ -177,3 +177,7 @@ Gerekli GitHub secret'lari:
 - Android: son saglam internal track build'ine don.
 - Backend: son saglam Worker deploy'una don ve secret setini o release ile hizala.
 - Veritabani semasi degisikliginde rollback oncesi D1 snapshot kontrol et.
+
+## Operasyon Notu
+
+- Ayrintili release ve deploy uygulama adimlari icin `RELEASE_RUNBOOK.md` dosyasini kullanin.
