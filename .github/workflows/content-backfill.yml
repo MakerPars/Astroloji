@@ -1,0 +1,59 @@
+name: content-backfill
+
+on:
+  schedule:
+    - cron: "15 1 * * *"
+  workflow_dispatch:
+    inputs:
+      seed_date:
+        description: "Optional base date in YYYY-MM-DD format. Leave empty to start from today."
+        required: false
+        type: string
+      daily_days:
+        description: "Number of future daily documents to upload."
+        required: false
+        default: "14"
+        type: string
+      skip_static_content:
+        description: "Skip personality and compatibility uploads."
+        required: false
+        default: true
+        type: boolean
+
+concurrency:
+  group: content-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    permissions:
+      contents: read
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      SEED_DATE: ${{ github.event.inputs.seed_date || '' }}
+      SEED_DAILY_DAYS: ${{ github.event.inputs.daily_days || '14' }}
+      SEED_SKIP_STATIC_CONTENT: ${{ github.event.inputs.skip_static_content || 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify build
+        run: npm run build
+
+      - name: Verify tests
+        run: npm test
+
+      - name: Backfill future content
+        run: npm run seed
