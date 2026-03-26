@@ -1,5 +1,8 @@
 name: ci
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches:
@@ -49,6 +52,13 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+      - name: Prepare CI Gradle settings
+        run: |
+          cat > gradle.properties <<'EOF'
+          org.gradle.jvmargs=-Xmx3072m -XX:MaxMetaspaceSize=1024m -Dfile.encoding=UTF-8
+          org.gradle.daemon=false
+          kotlin.code.style=official
+          EOF
       - name: Ensure Gradle wrapper is executable
         run: chmod +x ./gradlew
       - name: Prepare Firebase placeholder config
