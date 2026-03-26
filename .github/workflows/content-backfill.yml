@@ -1,8 +1,5 @@
 name: content-backfill
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 on:
   schedule:
     - cron: "15 1 * * *"
@@ -41,9 +38,9 @@ jobs:
       SEED_DAILY_DAYS: ${{ github.event.inputs.daily_days || '14' }}
       SEED_SKIP_STATIC_CONTENT: ${{ github.event.inputs.skip_static_content || 'true' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
